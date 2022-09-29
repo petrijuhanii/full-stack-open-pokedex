@@ -9,7 +9,7 @@ on:
       branches: [master]
       types: [opened, synchronize]
 
-jobs:
+jobs: 
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
