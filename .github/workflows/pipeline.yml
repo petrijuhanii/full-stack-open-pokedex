@@ -10,8 +10,8 @@ on:
     types: [opened, synchronize]
 
 jobs: 
+  if: ${{ github.event_name == 'push' }}
   simple_deployment_pipeline:
-    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -40,3 +40,13 @@ jobs:
           healthcheck: "https://powerful-fortress-45246.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          DRY_RUN: true
