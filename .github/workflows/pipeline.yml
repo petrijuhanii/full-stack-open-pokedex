@@ -35,3 +35,4 @@ jobs:
           heroku_email: "petri.vainio97@gmail.com"
           healthcheck: "https://powerful-fortress-45246.herokuapp.com/health"
           checkstring: "ok"
+          rollbackonhealthcheckfailed: true
